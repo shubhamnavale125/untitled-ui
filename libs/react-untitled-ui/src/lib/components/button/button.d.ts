@@ -12,7 +12,8 @@ import { PrimaryColorType } from '../../types/colors.d';
  * @params size - Size of the button. It supports those theme sizes that make sense for this component.
  * @params variant - Variant of the button. It supports those theme variants that make sense for this component.
  */
-export interface ButtonProps extends HTMLAttributes<HTMLButtonElement | HTMLAnchorElement> {
+export interface ButtonProps
+  extends HTMLAttributes<HTMLButtonElement | HTMLAnchorElement> {
   endIcon?: IconType;
   icon?: IconType;
   label: string;
@@ -25,7 +26,7 @@ export interface ButtonProps extends HTMLAttributes<HTMLButtonElement | HTMLAnch
   disabled?: boolean;
   online?: boolean;
 }
-export const sizes = {
+export const sizes: Record<string, string> = {
   sm: 'px-[7px] py-1 gap-2',
   md: 'px-2 py-[5px] gap-2',
   lg: 'px-[9px] py-[5px] gap-2',

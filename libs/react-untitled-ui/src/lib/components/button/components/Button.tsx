@@ -1,6 +1,7 @@
 import React from 'react';
-import { PrimaryColorType } from '../../../types/colors.d';
-import { Typography } from '../../typography';
+import { ColorType } from '../../../types/colors';
+import { Icon } from '../../icon';
+import { Typography, TypographySizeType } from '../../typography';
 import { ButtonProps, shapes, sizes } from '../button.d';
 
 /**
@@ -14,64 +15,102 @@ export const Button: React.FC<ButtonProps> = ({
   label,
   variant = 'contained',
   color = 'primary',
-  size = 'md',
   icon,
   endIcon,
   href,
   shape = 'square',
   className = '',
+  size = 'md',
   disabled = false,
   online = false,
   ...restProps
 }) => {
+  const typoClassName = `group-hover:text-${color}-800 group-disabled:text-${color}-300`;
+  const iconClassName = `group-hover:stroke-${color}-800 group-disabled:stroke-${color}-300`;
   const variants = {
     contained: {
-      button: `bg-${color}-600 hover:bg-${color}-700 focus:ring-4 ring-${color}-100 disabled:bg-${color}-200`,
-      typo: ``,
-      icon: ``,
+      buttonClass: `bg-${color}-600 hover:bg-${color}-700 focus:ring-4 ring-${color}-100 disabled:bg-${color}-200`,
+      typoClass: ``,
+      iconClass: ``,
+      typoColor: `white` as ColorType,
     },
     outlined: {
-      button: `bg-white border border-${color}-300 hover:bg-${color}-50 focus:ring-4 ring-${color}-100 disabled:border-${color}-200`,
-      typo: ``,
-      icon: ``,
+      buttonClass: `bg-white border border-${color}-300 hover:bg-${color}-50 focus:ring-4 ring-${color}-100 disabled:border-${color}-200`,
+      typoClass: typoClassName,
+      iconClass: iconClassName,
+      typoColor: `${color}-700` as ColorType,
     },
     light: {
-      button: `bg-${color}-50 hover:bg-${color}-100 focus:ring-4 ring-${color}-100 disabled:bg-${color}-25`,
-      typo: ``,
-      icon: ``,
+      buttonClass: `bg-${color}-50 hover:bg-${color}-100 focus:ring-4 ring-${color}-100 disabled:bg-${color}-25`,
+      typoClass: typoClassName,
+      iconClass: iconClassName,
+      typoColor: `${color}-700` as ColorType,
     },
     text: {
-      button: `hover:bg-${color}-50`,
-      typo: ``,
-      icon: ``,
+      buttonClass: `hover:bg-${color}-50`,
+      typoClass: typoClassName,
+      iconClass: iconClassName,
+      typoColor: `${color}-700` as ColorType,
     },
     link: {
-      button: `cursor-pointer`,
-      typo: ``,
-      icon: ``,
+      buttonClass: `cursor-pointer`,
+      typoClass: typoClassName,
+      iconClass: iconClassName,
+      typoColor: `${color}-700` as ColorType,
     },
   };
-  const classes = `group disabled:cursor-not-allowed ${variants[variant].button} ${shapes[shape]} ${className}`;
+  const { buttonClass, typoClass, typoColor, iconClass } = variants[variant];
+  const classes = `group disabled:cursor-not-allowed ${buttonClass} ${shapes[shape]} ${className}`;
 
-  const typoClassName =
-    variant !== 'contained' ? `group-hover:text-${color}-800 group-disabled:text-${color}-300` : '';
-  const iconClassName =
-    variant !== 'contained'
-      ? `group-hover:stroke-${color}-800 group-disabled:stroke-${color}-300`
-      : '';
-  const typoColor = variant === 'contained' ? 'white' : (`${color}-700` as PrimaryColorType);
-  const typoSize = size === '2xl' ? 'lg' : size === 'xl' || size === 'lg' ? 'md' : 'sm';
+  const typoSize: Record<string, string> = {
+    sm: 'sm',
+    md: 'sm',
+    lg: 'md',
+    xl: 'md',
+    '2xl': 'lg',
+  };
+  const statusDotColor = {
+    contained: 'white',
+    outlined: 'success-500',
+    light: 'success-500',
+    text: 'success-500',
+    link: 'success-500',
+  };
+
   const iconSize = size === '2xl' ? 24 : 20;
-
-  const statusDotColor =
-    variant === 'contained' ? 'white' : disabled ? `${color}-300` : 'success-500';
 
   const children = (
     <div className={`flex flex-row items-center ${sizes[size]}`}>
-      {online && <div className={`w-1.5 h-1.5 bg-${statusDotColor} rounded-full`} />}
-      <Typography color={typoColor} className={typoClassName} size={typoSize}>
+      {icon && (
+        <Icon
+          name={icon}
+          color={typoColor}
+          size={iconSize}
+          className={iconClass}
+        />
+      )}
+      {online && (
+        <div
+          className={`w-1.5 h-1.5 bg-${
+            disabled ? `${color}-300` : statusDotColor[variant]
+          } rounded-full`}
+        />
+      )}
+      <Typography
+        color={typoColor}
+        className={typoClass}
+        size={typoSize[size] as TypographySizeType}
+      >
         {label}
       </Typography>
+      {endIcon && (
+        <Icon
+          name={endIcon}
+          color={typoColor}
+          size={iconSize}
+          className={iconClass}
+        />
+      )}
     </div>
   );
 
