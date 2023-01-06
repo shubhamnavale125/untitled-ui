@@ -1,3 +1,5 @@
+export * from './avatar';
 export * from './button';
-export * from './typography';
+export * from './buttonGroup';
 export * from './icon';
+export * from './typography';
