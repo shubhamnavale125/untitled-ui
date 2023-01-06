@@ -8,7 +8,7 @@ const items = [
     stringReplacers: [{ question: 'Enter component name', slot: '__component__' }],
     dynamicReplacers: [{ slot: '__test__', slotValue: 'test' }],
     output: {
-      path: './src/components/__component__(camelCase)',
+      path: './src/lib/components/__component__(camelCase)',
       overwrite: false,
     },
   },
@@ -20,7 +20,7 @@ const items = [
     },
     stringReplacers: [{ question: 'Enter component name', slot: '__component__' }],
     output: {
-      path: './src/storybook/__component__(camelCase)',
+      path: './src/lib/storybook/__component__(camelCase)',
       overwrite: false,
     },
   },
