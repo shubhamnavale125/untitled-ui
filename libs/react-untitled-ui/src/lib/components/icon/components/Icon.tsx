@@ -12,7 +12,6 @@ export const Icon: React.FC<IconProps> = ({
 }) => {
   const SVGIcon = useMemo(() => iconMap[name], [name]);
   const isSizeANumber = typeof size === 'number';
-  console.log(SVGIcon, name, iconMap, iconMap[name]);
   if (!SVGIcon) {
     return <></>;
   }

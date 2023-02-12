@@ -1,5 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Button, Icon, Typography } from '@react/react-untitled-ui';
+import './app.css';
 
 export function App() {
   return (
